@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import Main from '../template/Main';
 import { Api } from '../../services/globalVariables';
+import UserForm from './UserForm';
+import UserTable from './UserTable';
 
 // Refactor later! UserTable and UserForm
 
@@ -58,52 +60,6 @@ export default class UserCrud extends Component {
         this.setState({ user });
     }
 
-    renderForm() {
-        const { user } = this.state;
-        return (
-            <div className="form">
-                <div className="row">
-                    <div className="col-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor="name">Nome</label>
-                            <input type="text" className="form-control"
-                                name="name"
-                                value={user.name}
-                                onChange={e => this.updateField(e)}
-                                placeholder="Digite o seu nome..." />
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor="email">E-mail</label>
-                            <input type="text" className="form-control"
-                                name="email"
-                                value={user.email}
-                                onChange={e => this.updateField(e)}
-                                placeholder="Digite o e-mail..." />
-                        </div>
-                    </div>
-                </div>
-
-                <hr />
-                <div className="row">
-                    <div className="col-12 d-flex justify-content-end">
-                        <button className="btn btn-primary"
-                            onClick={e => this.save(e)}>
-                            Salvar
-                        </button>
-
-                        <button className="btn btn-secondary ml-2"
-                            onClick={e => this.clear(e)}>
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
     load = (user) => {
         this.setState({ user });
     }
@@ -115,52 +71,19 @@ export default class UserCrud extends Component {
         });
     }
 
-    renderTable = () => {
-        return (
-            <table className="table mt-4">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderRows()}
-                </tbody>
-            </table>
-        )
-    }
-
-    renderRows = () => {
-        const { list } = this.state;
-        return list.map(user => {
-            return (
-                <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>
-                        <button className="btn btn-warning" style={{'border-radius': '8px'}}
-                            onClick={() => this.load(user)}>
-                            <i className="fa fa-pencil" />
-                        </button>
-                        <button className="btn btn-danger ml-2" style={{'border-radius': '8px'}}
-                            onClick={() => this.remove(user)}>
-                            <i className="fa fa-trash" />
-                        </button>
-                    </td>
-                </tr>
-            );
-        })
-    }
 
     render() {
         return (
             <Main {...HeaderProps}>
-                {this.renderForm()}
-                {this.renderTable()}
+                <UserForm 
+                user={this.state.user} 
+                inputHandler={this.updateField}
+                saveHandler={this.save} 
+                cancelHandler={this.clear} />
+                <UserTable
+                list={this.state.list}
+                loadHandler={this.load}
+                removeHandler={this.remove} />
             </Main>
         )
     }
