@@ -1,0 +1,45 @@
+aside.menu-area {
+    background-color: var(--bg-dark);
+    box-shadow: 
+        2px 0 10px 0 rgba(0, 0, 0, 0.12)
+        2px 0 15px 0 rgba(0, 0, 0, 0.09);
+}
+
+.menu a {
+    /* Each item per line */
+    display: block;
+    /* Taking the underscore out of the link */
+    text-decoration: none;
+    color: #FFF;
+    /* Decreasing font thickness */
+    font-weight: 300;
+    padding: 15px;
+}
+
+.menu a:hover, .selectedItem {
+    background: linear-gradient(135deg, #07a7e3 0%, #32dac3 100%);
+    border-radius: 8px;
+}
+
+.selectedItem i, .selectedItem span {
+    color: #000;
+}
+
+@media(max-width: 768px) {
+    .menu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .menu a {
+        display: inline;
+        padding: 10px;
+        margin: 0px;
+    }
+
+    .menu {
+        height: 100%;
+        justify-content: space-around;
+    }
+}
